@@ -165,6 +165,7 @@ ID,Longitud (px),Longitud (mm),Radio min (px),Radio min (mm)
 1. **Sube el repositorio a GitHub** con estos archivos:
    - `streamlit_app.py`
    - `requirements.txt`
+   - `packages.txt` (importante para librerías del sistema)
    - `.gitignore` (opcional)
 
 2. **Ve a [Streamlit Cloud](https://share.streamlit.io/)**
@@ -174,9 +175,30 @@ ID,Longitud (px),Longitud (mm),Radio min (px),Radio min (mm)
    - Rama: `main`
    - Main file: `streamlit_app.py`
 
-4. **¡Listo!** La app se desplegará automáticamente
+4. **Espera a que se instale** (puede tomar 3-5 minutos)
+
+5. **Si hay error de OpenCV**:
+   - Haz clic en "Manage app" → "Reboot app"
+   - Si persiste, ve a "Settings" → "Advanced settings" → "Client error details" para ver logs
+   - Verifica que `packages.txt` y `requirements.txt` estén en el repositorio
+
+6. **¡Listo!** La app se desplegará automáticamente
 
 ## 🐛 Solución de problemas
+
+### Error: `ImportError: cv2 cannot open shared object file`
+
+**Solución:**
+1. Asegúrate de que `packages.txt` esté en el repositorio con:
+   ```
+   libsm6
+   libxext6
+   libxrender-dev
+   libgomp1
+   ```
+2. Verifica que `requirements.txt` use `opencv-python-headless` (no `opencv-python`)
+3. Haz clic en "Manage app" → "Reboot app" en Streamlit Cloud
+4. Si persiste, elimina y crea la app nuevamente
 
 ### La placa no se detecta correctamente
 - Mejora la iluminación de la imagen
