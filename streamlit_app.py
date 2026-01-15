@@ -304,7 +304,7 @@ with st.sidebar:
     st.header("Opciones de entrada")
     opcion_entrada = st.radio(
         "¿Cómo deseas capturar la imagen?",
-        ["📸 Captura desde cámara", "📁 Cargar archivo", "🎥 Grabación de video"]
+        ["📸 Captura desde cámara", "📁 Cargar archivo"]
     )
     
     st.markdown("---")
@@ -415,30 +415,6 @@ elif opcion_entrada == "📁 Cargar archivo":
         if placa_detectada:
             st.session_state.placa_detectada = placa_detectada
 
-elif opcion_entrada == "🎥 Grabación de video":
-    st.subheader("Grabación de video")
-    video_file = st.file_uploader("Selecciona un archivo de video", type=["mp4", "avi", "mov"])
-    
-    if video_file is not None:
-        st.info("Extrayendo el primer fotograma del video...")
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as tmp:
-            tmp.write(video_file.read())
-            tmp_path = tmp.name
-        
-        cap = cv2.VideoCapture(tmp_path)
-        ret, frame = cap.read()
-        if ret:
-            imagen_para_procesar = frame
-            st.success("Primer fotograma extraído")
-            # Detectar placa automáticamente
-            placa_detectada = detectar_placa_hough(imagen_para_procesar)
-            if placa_detectada:
-                st.session_state.placa_detectada = placa_detectada
-        else:
-            st.error("No se pudo leer el video")
-        cap.release()
-        os.unlink(tmp_path)
-
 # Procesamiento de la imagen
 if imagen_para_procesar is not None:
     st.markdown("---")
@@ -516,21 +492,21 @@ if imagen_para_procesar is not None:
         
         # Crear columnas para mostrar la tabla como HTML
         tabla_html = "<table style='border-collapse: collapse; width: 100%;'>"
-        tabla_html += "<tr style='background-color: #f2f2f2;'>"
-        tabla_html += "<th style='border: 1px solid #ddd; padding: 8px;'>ID</th>"
-        tabla_html += "<th style='border: 1px solid #ddd; padding: 8px;'>Longitud (px)</th>"
-        tabla_html += "<th style='border: 1px solid #ddd; padding: 8px;'>Longitud (mm)</th>"
-        tabla_html += "<th style='border: 1px solid #ddd; padding: 8px;'>Radio mín (px)</th>"
-        tabla_html += "<th style='border: 1px solid #ddd; padding: 8px;'>Radio mín (mm)</th>"
+        tabla_html += "<tr style='background-color: #2a2a2a; color: #ffffff;'>"
+        tabla_html += "<th style='border: 1px solid #555; padding: 8px;'>ID</th>"
+        tabla_html += "<th style='border: 1px solid #555; padding: 8px;'>Longitud (px)</th>"
+        tabla_html += "<th style='border: 1px solid #555; padding: 8px;'>Longitud (mm)</th>"
+        tabla_html += "<th style='border: 1px solid #555; padding: 8px;'>Radio mín (px)</th>"
+        tabla_html += "<th style='border: 1px solid #555; padding: 8px;'>Radio mín (mm)</th>"
         tabla_html += "</tr>"
         
         for med in mediciones:
             tabla_html += "<tr>"
-            tabla_html += f"<td style='border: 1px solid #ddd; padding: 8px;'>{med['ID']}</td>"
-            tabla_html += f"<td style='border: 1px solid #ddd; padding: 8px;'>{med['Longitud (px)']}</td>"
-            tabla_html += f"<td style='border: 1px solid #ddd; padding: 8px;'>{med['Longitud (mm)']}</td>"
-            tabla_html += f"<td style='border: 1px solid #ddd; padding: 8px;'>{med['Radio min (px)']}</td>"
-            tabla_html += f"<td style='border: 1px solid #ddd; padding: 8px;'>{med['Radio min (mm)']}</td>"
+            tabla_html += f"<td style='border: 1px solid #555; padding: 8px;'>{med['ID']}</td>"
+            tabla_html += f"<td style='border: 1px solid #555; padding: 8px;'>{med['Longitud (px)']}</td>"
+            tabla_html += f"<td style='border: 1px solid #555; padding: 8px;'>{med['Longitud (mm)']}</td>"
+            tabla_html += f"<td style='border: 1px solid #555; padding: 8px;'>{med['Radio min (px)']}</td>"
+            tabla_html += f"<td style='border: 1px solid #555; padding: 8px;'>{med['Radio min (mm)']}</td>"
             tabla_html += "</tr>"
         
         tabla_html += "</table>"
