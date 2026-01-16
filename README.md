@@ -6,8 +6,7 @@ Aplicación web interactiva para capturar, segmentar y analizar coleóptilos (ta
 
 - **📸 Múltiples opciones de entrada**:
   - Captura en tiempo real desde cámara web
-  - Carga de imágenes desde archivo
-  - Extracción de fotogramas desde video
+  - Carga de imágenes desde archiv
 
 - **🎯 Calibración automática y manual**:
   - Detección automática de la placa de referencia (90mm)
@@ -260,3 +259,4 @@ Análisis de Coleóptilos v1.0. Universidad Autónoma de Madrid. 2026.
 - OpenCV: https://opencv.org/
 - Streamlit: https://streamlit.io/
 - Scikit-image: https://scikit-image.org/
+
